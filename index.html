@@ -5,14 +5,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SpecialSteel — металлообработка и поковки</title>
 <link rel="stylesheet" href="style.css">
+<style>
+/* --- Логотип и меню-лента: рабочая версия (перекрывает style.css) --- */
+.logo{font-size:1.4rem;font-weight:800;letter-spacing:.04em;white-space:nowrap;
+  background:linear-gradient(100deg,#5b6570,#8b949e 12%,#e8eef4 22%,#fff 28%,#cfe0f2 36%,#aeb9c4 46%,#6d747d 58%,#b9c0c8 72%,#e9f2fa 86%,#7d858f);
+  background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shimmer 9s linear infinite, glow 5s ease-in-out infinite}
+.logo span{font-weight:400;font-size:.8rem;letter-spacing:.18em;display:block;
+  -webkit-text-fill-color:#8b929b;color:#8b929b}
+@keyframes shimmer{0%{background-position:0% 50%}100%{background-position:300% 50%}}
+@keyframes glow{0%,100%{filter:drop-shadow(0 0 0 rgba(190,220,255,0))}50%{filter:drop-shadow(0 0 10px rgba(190,220,255,.45))}}
+
+#menu{overflow:hidden;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+#menu.dragging{cursor:grabbing}
+#menu ul{display:flex;flex-wrap:nowrap;gap:0;width:max-content;margin:0;padding:0;list-style:none;will-change:transform}
+#menu a{display:block;padding:8px 14px;margin-right:8px;white-space:nowrap;
+  background:linear-gradient(180deg,#333941,#262a30);border:1px solid rgba(255,255,255,.08);
+  border-radius:20px;font-size:.92rem;color:#aab3bd}
+#menu a.active{color:#fff;background:linear-gradient(180deg,#4a525c,#2b3037);border-color:rgba(255,255,255,.35)}
+</style>
 </head>
 
-  <body>
+<body>
 
 <header>
   <div class="top">
     <div class="logo">SPECIALSTEEL<span>МЕТАЛЛООБРАБОТКА · ПОКОВКИ</span></div>
-    <nav>
+    <div id="menu">
       <ul>
         <li><a class="active" href="index.html">Главная</a></li>
         <li><a href="rough.html">Черновая мехобработка</a></li>
@@ -26,7 +46,7 @@
         <li><a href="gallery.html">Галерея</a></li>
         <li><a href="contacts.html">Контакты</a></li>
       </ul>
-    </nav>
+    </div>
   </div>
 </header>
 
@@ -95,5 +115,76 @@
   <p>Электронная почта: <a href="mailto:specialsteel@inbox.ru">specialsteel@inbox.ru</a></p>
 </footer>
 
+<script>
+(function () {
+  var box = document.getElementById('menu');
+  var ul = box.querySelector('ul');
+  if (!box || !ul) { alert('меню не найдено'); return; }
+
+  var baseCount = 0, period = 1;
+  var offset = 0, dragging = false, startX = 0, startOffset = 0;
+  var resumeAt = 0, moved = false, rafId = null, lastTime = 0;
+
+  function build() {
+    if (baseCount) while (ul.children.length > baseCount) ul.removeChild(ul.lastElementChild);
+    baseCount = ul.children.length;
+
+    var w = 0, i;
+    for (i = 0; i < baseCount; i++) w += ul.children[i].offsetWidth;
+    if (!w) w = 1;
+
+    var guard = 0;
+    while (ul.scrollWidth < box.clientWidth + w && guard++ < 50) {
+      for (i = 0; i < baseCount; i++) ul.appendChild(ul.children[i].cloneNode(true));
+    }
+    period = w;
+  }
+
+  function render() {
+    offset = ((offset % period) + period) % period;
+    ul.style.transform = 'translate3d(' + (-offset) + 'px,0,0)';
+  }
+
+  function tick(now) {
+    rafId = requestAnimationFrame(tick);
+    var dt = lastTime ? (now - lastTime) : 16.7;
+    lastTime = now;
+    if (!dragging && now > resumeAt) offset += dt * 0.024;
+    render();
+  }
+
+  build();
+  render();
+  rafId = requestAnimationFrame(tick);
+
+  box.addEventListener('pointerdown', function (e) {
+    dragging = true; moved = false;
+    startX = e.clientX; startOffset = offset;
+    box.classList.add('dragging');
+    resumeAt = Infinity;
+    try { box.setPointerCapture(e.pointerId); } catch (err) {}
+  });
+  box.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    var dx = e.clientX - startX;
+    if (Math.abs(dx) > 5) moved = true;
+    offset = startOffset - dx;
+    render();
+  });
+  function endDrag() {
+    if (!dragging) return;
+    dragging = false;
+    box.classList.remove('dragging');
+    resumeAt = performance.now() + 4000;
+  }
+  box.addEventListener('pointerup', endDrag);
+  box.addEventListener('pointercancel', endDrag);
+  box.addEventListener('click', function (e) {
+    if (moved) { e.preventDefault(); moved = false; }
+  });
+
+  window.addEventListener('resize', function () { build(); render(); });
+})();
+</script>
 </body>
 </html>
