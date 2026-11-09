@@ -140,3 +140,42 @@ footer a{color:var(--steel)}
   nav ul{justify-content:center}
   .hero{padding:60px 16px 46px}
 }
+
+/* Раскалённая надпись SPECIALSTEEL */
+.lava-brand {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+
+  /* Переливы расплавленного металла */
+  background: linear-gradient(
+    100deg,
+    #3a0500 0%,
+    #7a1a00 15%,
+    #e63b00 30%,
+    #ff8c1a 42%,
+    #ffd54a 50%,
+    #ff8c1a 58%,
+    #e63b00 70%,
+    #7a1a00 85%,
+    #3a0500 100%
+  );
+  background-size: 300% 100%;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  /* Тлеющее свечение вокруг букв */
+  filter: drop-shadow(0 0 6px rgba(255, 80, 0, 0.7))
+          drop-shadow(0 0 18px rgba(255, 140, 0, 0.4));
+
+  animation: lava-flow 4s linear infinite;
+}
+
+@keyframes lava-flow {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
