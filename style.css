@@ -136,21 +136,14 @@ footer{margin-top:60px;padding:36px 20px;text-align:center;
 footer p{color:var(--muted);font-size:.92rem}
 footer a{color:var(--steel)}
 @media(max-width:720px){
-  .top{justify-content:center}
-  nav ul{justify-content:center}
   .hero{padding:60px 16px 46px}
 }
 
 /* Раскалённая надпись SPECIALSTEEL */
-.lava-brand {
-  font-size: 2.2rem;
-  font-weight: 800;
-  letter-spacing: 6px;
-  text-transform: uppercase;
-  margin-bottom: 14px;
-
-  /* Переливы расплавленного металла */
-  background: linear-gradient(
+.lava-brand{
+  font-size:2.2rem;font-weight:800;letter-spacing:6px;
+  text-transform:uppercase;margin-bottom:14px;
+  background:linear-gradient(
     100deg,
     #3a0500 0%,
     #7a1a00 15%,
@@ -162,67 +155,67 @@ footer a{color:var(--steel)}
     #7a1a00 85%,
     #3a0500 100%
   );
-  background-size: 300% 100%;
-
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-
-  /* Тлеющее свечение вокруг букв */
-  filter: drop-shadow(0 0 6px rgba(255, 80, 0, 0.7))
-          drop-shadow(0 0 18px rgba(255, 140, 0, 0.4));
-
-  animation: lava-flow 4s linear infinite;
+  background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 6px rgba(255,80,0,.7))
+         drop-shadow(0 0 18px rgba(255,140,0,.4));
+  animation:lava-flow 4s linear infinite;
 }
-
-@keyframes lava-flow {
-  0%   { background-position: 0% 50%; }
-  100% { background-position: 300% 50%; }
+@keyframes lava-flow{
+  0%{background-position:0% 50%}
+  100%{background-position:300% 50%}
 }
 
 /* ===== Мобильное меню: бесконечная лента ===== */
 @media (max-width: 768px) {
 
-  header .top {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-    padding: 12px 16px;
+  header .top{
+    flex-direction:column;
+    align-items:stretch;
+    gap:8px;
+    padding:12px 16px;
   }
 
-  nav {
-    width: 100%;
-    overflow: hidden;        /* ленту двигает JS, а не скролл браузера */
-    touch-action: pan-y;     /* вертикальный скролл страницы не блокируем */
-    cursor: grab;
+  nav{
+    width:100%;
+    overflow:hidden;        /* ленту двигает JS, а не скролл браузера */
+    touch-action:pan-y;     /* вертикальный скролл страницы не блокируем */
+    cursor:grab;
   }
 
-  nav.dragging {
-    cursor: grabbing;
+  nav.dragging{cursor:grabbing}
+
+  nav ul{
+    display:flex;
+    flex-wrap:nowrap;       /* перебиваем flex-wrap:wrap из базовых стилей */
+    justify-content:flex-start;
+    gap:0;
+    width:max-content;
+    margin:0;
+    padding:0;
+    will-change:transform;
   }
 
-  nav ul {
-    display: flex;
-    flex-wrap: nowrap;
-    width: max-content;      /* вся лента в одну строку */
-    will-change: transform;
+  nav li{flex-shrink:0}
+
+  nav a{
+    display:block;
+    padding:8px 14px;
+    margin-right:8px;
+    white-space:nowrap;
+    background:linear-gradient(180deg,#333941,#262a30);
+    border:1px solid var(--line);
+    border-radius:20px;
+    font-size:.9rem;
+    color:var(--steel);
+    user-select:none;
+    -webkit-user-select:none;
+    -webkit-touch-callout:none;
   }
 
-  nav a {
-    display: block;
-    padding: 8px 14px;
-    margin-right: 8px;
-    white-space: nowrap;
-    background: var(--metal-mid, #3a3a3f);
-    border: 1px solid var(--metal-light, #55555b);
-    border-radius: 20px;
-    font-size: 0.9rem;
-    user-select: none;       /* чтобы не выделялся текст при свайпе */
-  }
-
-  nav a.active {
-    background: var(--metal-light, #55555b);
-    color: var(--metal-highlight, #ffffff);
-    border-color: var(--metal-highlight, #ffffff);
+  nav a.active{
+    color:#fff;
+    background:linear-gradient(180deg,#4a525c,#2b3037);
+    border-color:rgba(255,255,255,.35);
   }
 }
