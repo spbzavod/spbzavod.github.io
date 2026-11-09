@@ -6,70 +6,81 @@
 <title>SpecialSteel — металлообработка и поковки</title>
 <link rel="stylesheet" href="style.css">
 </head>
-
 <script>
 (function () {
-  const mq = window.matchMedia('(max-width: 768px)');
-  let nav, ul, halfWidth = 0, offset = 0, rafId = null;
-  let dragging = false, startX = 0, startOffset = 0;
-  let resumeAt = 0; // время, когда лента снова поедет после свайпа
+  var mq = window.matchMedia('(max-width: 768px)');
+  var nav = document.querySelector('header nav');
+  var ul = nav && nav.querySelector('ul');
+  if (!nav || !ul) return;
+
+  var baseCount = 0, halfWidth = 1;
+  var offset = 0, dragging = false, startX = 0, startOffset = 0;
+  var resumeAt = 0, moved = false, rafId = null;
 
   function build() {
-    nav = document.querySelector('header nav');
-    ul = nav ? nav.querySelector('ul') : null;
-    if (!ul) return;
+    // снимаем старые клоны, если build уже вызывался
+    if (baseCount) {
+      while (ul.children.length > baseCount) ul.removeChild(ul.lastElementChild);
+    }
+    baseCount = ul.children.length;
 
-    ul.style.transform = 'translateX(0)';
-    // оставляем только первый комплект пунктов
-    const items = Array.from(ul.children);
-    while (ul.children.length > items.length) ul.lastChild.remove();
+    // ширина одного комплекта пунктов
+    var w = 0, i;
+    for (i = 0; i < baseCount; i++) w += ul.children[i].offsetWidth;
 
-    // дублируем пункты, пока лента не станет вдвое шире экрана
-    const base = items.map(li => {
-      const c = li.cloneNode(true);
-      if (c.querySelector('a.active')) c.querySelector('a').classList.remove('active');
-      return c;
-    });
-    while (ul.scrollWidth < nav.clientWidth * 2) {
-      base.forEach(li => ul.appendChild(li.cloneNode(true)));
+    // дублируем, пока лента не станет длиннее «комплект + экран»
+    // (гарантия бесшовной закольцовки на любом экране)
+    var guard = 0;
+    while (ul.scrollWidth < nav.clientWidth + w && guard++ < 40) {
+      for (i = 0; i < baseCount; i++) ul.appendChild(ul.children[i].cloneNode(true));
     }
 
-    // «половина» ленты — период закольцовки
-    halfWidth = 0;
-    Array.from(ul.children).forEach((li, i) => {
-      if (i < items.length) halfWidth += li.offsetWidth;
-    });
+    // подсветку активного пункта оставляем только в первом комплекте
+    for (i = baseCount; i < ul.children.length; i++) {
+      var a = ul.children[i].querySelector('a.active');
+      if (a) a.classList.remove('active');
+    }
+
+    halfWidth = w || 1;
   }
 
   function render() {
-    // сдвиг всегда внутри [0, halfWidth) — лента бесконечна в обе стороны
     offset = ((offset % halfWidth) + halfWidth) % halfWidth;
     ul.style.transform = 'translateX(' + (-offset) + 'px)';
   }
 
   function tick(now) {
     rafId = requestAnimationFrame(tick);
-    if (!dragging && now > resumeAt) {
-      offset += 0.4; // скорость автопрокрутки, px за кадр (~24 px/с)
-    }
+    if (!dragging && now > resumeAt) offset += 0.4; // скорость автопрокрутки
     render();
   }
 
-  nav = document.querySelector('header nav');
-  ul = nav ? nav.querySelector('ul') : null;
-  if (!ul) return;
+  function start() {
+    if (rafId || !mq.matches) return;
+    offset = 0;
+    build();
+    render();
+    rafId = requestAnimationFrame(tick);
+  }
 
-  // --- свайп пальцем / мышью ---
+  function stop() {
+    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+    ul.style.transform = '';
+  }
+
   ul.addEventListener('pointerdown', function (e) {
-    dragging = true;
+    if (!mq.matches) return;
+    dragging = true; moved = false;
     startX = e.clientX;
     startOffset = offset;
     nav.classList.add('dragging');
-    ul.setPointerCapture(e.pointerId);
+    resumeAt = Infinity;
   });
   ul.addEventListener('pointermove', function (e) {
     if (!dragging) return;
-    offset = startOffset - (e.clientX - startX);
+    var dx = e.clientX - startX;
+    if (Math.abs(dx) > 5) moved = true;
+    offset = startOffset - dx;
   });
   function endDrag() {
     if (!dragging) return;
@@ -79,25 +90,25 @@
   }
   ul.addEventListener('pointerup', endDrag);
   ul.addEventListener('pointercancel', endDrag);
+  ul.addEventListener('dragstart', function (e) { e.preventDefault(); });
 
-  // при пересоздании ленты (смена ориентации и т.п.)
+  // свайп не должен открывать ссылку
+  ul.addEventListener('click', function (e) {
+    if (moved) { e.preventDefault(); moved = false; }
+  });
+
   window.addEventListener('resize', function () {
-    if (!mq.matches) return;
-    offset = 0;
-    build();
-    render();
+    if (mq.matches) { build(); render(); }
   });
 
-  mq.addEventListener('change', function (e) {
-    if (e.matches) { build(); if (!rafId) rafId = requestAnimationFrame(tick); }
-  });
+  function onMq(e) { e.matches ? start() : stop(); }
+  if (mq.addEventListener) mq.addEventListener('change', onMq);
+  else if (mq.addListener) mq.addListener(onMq);
 
-  if (mq.matches) {
-    build();
-    rafId = requestAnimationFrame(tick);
-  }
+  start();
 })();
 </script>
+
 
 
   
