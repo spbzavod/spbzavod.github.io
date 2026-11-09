@@ -5,6 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SpecialSteel — металлообработка и поковки</title>
 <link rel="stylesheet" href="style.css">
+<style>
+/* Переопределение меню: все пункты видны, переносятся на новую строку */
+nav ul{
+  display:flex;
+  flex-wrap:wrap;          /* пункты переносятся, а не обрезаются */
+  justify-content:center;
+  gap:8px;
+  width:100%;
+}
+nav ul li{flex:0 0 auto}
+nav ul a{display:block;white-space:nowrap}
+</style>
 </head>
 
 <body>
@@ -84,7 +96,7 @@
   <h2>Почему SpecialSteel</h2>
   <div class="grip"></div>
   <div class="cards">
-    <div class="card"><h3>Полный цикl</h3><p>От слитка и проката до готовой детали: ковка, раскатка, обдирка, финишная обработка и контроль.</p></div>
+    <div class="card"><h3>Полный цикл</h3><p>От слитка и проката до готовой детали: ковка, раскатка, обдирка, финишная обработка и контроль.</p></div>
     <div class="card"><h3>Широкий тоннаж</h3><p>От единиц килограммов до многотонных поковок — подбираем оборудование под каждую задачу.</p></div>
     <div class="card"><h3>Работа по чертежам</h3><p>Принимаем чертежи в любом распространённом формате, согласуем техпроцесс до запуска.</p></div>
   </div>
