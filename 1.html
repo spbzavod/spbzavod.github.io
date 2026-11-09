@@ -1,282 +1,115 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Контакты — SpecialSteel</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Контакты — SpecialSteel</title>
 <style>
-/* ===== SpecialSteel — глянцевый тёмно-серый металлик ===== */
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --steel:#aab3bd; --text:#d8dce2; --muted:#8b929b;
-  --line:rgba(255,255,255,.08); --accent:#7fb2d9;
-}
-body{
-  font-family:'Segoe UI',Roboto,Arial,sans-serif;
-  color:var(--text); line-height:1.65; min-height:100vh;
-  background:
-    radial-gradient(1100px 520px at 15% -8%, #343a42 0%, transparent 60%),
-    radial-gradient(900px 480px at 88% 6%, #2a2f37 0%, transparent 55%),
-    linear-gradient(180deg,#1b1e23 0%,#131519 100%);
-}
-a{color:var(--accent);text-decoration:none}
+body{font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#d8dce2;background:#16181c;line-height:1.65}
+a{color:#7fb2d9;text-decoration:none}
 
-/* --- Логотип: серебристо-голубой блик + медленная вспышка --- */
-.logo{
-  font-size:1.45rem;font-weight:800;letter-spacing:.04em;white-space:nowrap;
-  background:linear-gradient(100deg,
-    #5b6570 0%,#8b949e 12%,#e8eef4 22%,#ffffff 28%,#cfe0f2 36%,
-    #aeb9c4 46%,#6d747d 58%,#b9c0c8 72%,#e9f2fa 86%,#7d858f 100%);
+header{position:sticky;top:0;z-index:100;background:rgba(19,21,25,.9);border-bottom:1px solid rgba(255,255,255,.08)}
+.top{max-width:1180px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+
+.logo{font-size:1.4rem;font-weight:800;letter-spacing:.04em;white-space:nowrap;
+  background:linear-gradient(100deg,#5b6570,#8b949e 12%,#e8eef4 22%,#fff 28%,#cfe0f2 36%,#aeb9c4 46%,#6d747d 58%,#b9c0c8 72%,#e9f2fa 86%,#7d858f);
   background-size:300% 100%;
   -webkit-background-clip:text;background-clip:text;color:transparent;
-  animation:steel-shimmer 9s linear infinite, steel-glow 5s ease-in-out infinite;
-}
-.logo span{
-  font-weight:400;font-size:.85rem;letter-spacing:.18em;
-  background:linear-gradient(100deg,
-    #6a727b 0%,#9aa5b0 18%,#d9e4ee 32%,#b6c4d2 46%,#7d858f 62%,#c9d5e0 80%,#6a727b 100%);
-  background-size:300% 100%;
-  -webkit-background-clip:text;background-clip:text;
-  -webkit-text-fill-color:transparent;color:transparent;
-  animation:steel-shimmer 9s linear infinite;
-}
-@keyframes steel-shimmer{
-  0%{background-position:0% 50%}
-  100%{background-position:300% 50%}
-}
-@keyframes steel-glow{
-  0%,100%{filter:drop-shadow(0 0 0 rgba(190,220,255,0))}
-  50%{filter:drop-shadow(0 0 10px rgba(190,220,255,.45)) drop-shadow(0 0 22px rgba(160,200,255,.22))}
-}
+  animation:shimmer 9s linear infinite, glow 5s ease-in-out infinite}
+.logo span{font-weight:400;font-size:.8rem;letter-spacing:.18em;display:block;
+  -webkit-text-fill-color:#8b929b;color:#8b929b}
+@keyframes shimmer{0%{background-position:0% 50%}100%{background-position:300% 50%}}
+@keyframes glow{0%,100%{filter:drop-shadow(0 0 0 rgba(190,220,255,0))}50%{filter:drop-shadow(0 0 10px rgba(190,220,255,.45))}}
 
-/* --- Шапка --- */
-header{
-  position:sticky;top:0;z-index:100;
-  background:rgba(19,21,25,.82);
-  border-bottom:1px solid var(--line);
-}
-.top{max-width:1180px;margin:0 auto;padding:14px 20px;
-  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-
-nav ul{display:flex;gap:4px;list-style:none;flex-wrap:wrap}
-nav a{display:block;padding:8px 13px;border-radius:8px;font-size:.92rem;
-  color:var(--steel);transition:.25s}
-nav a.active{
-  color:#fff;background:linear-gradient(180deg,#3a4048,#262a30);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 3px 10px rgba(0,0,0,.4)}
-
-/* --- Герой --- */
-.hero{max-width:1180px;margin:0 auto;padding:90px 20px 70px;text-align:center}
-.hero h1{
-  font-size:clamp(2rem,5vw,3.4rem);letter-spacing:.02em;margin-bottom:18px;
-  background:linear-gradient(180deg,#f4f6f8 0%,#b6bdc5 45%,#767d86 52%,#aeb5bd 58%,#e7eaee 100%);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.hero p{color:var(--muted);max-width:720px;margin:0 auto 34px;font-size:1.1rem}
-
-/* --- Раскалённая надпись SPECIALSTEEL --- */
-.lava-brand{
-  font-size:2.2rem;font-weight:800;letter-spacing:6px;
-  text-transform:uppercase;margin-bottom:14px;
-  background:linear-gradient(100deg,
-    #3a0500 0%,#7a1a00 15%,#e63b00 30%,#ff8c1a 42%,#ffd54a 50%,
-    #ff8c1a 58%,#e63b00 70%,#7a1a00 85%,#3a0500 100%);
-  background-size:300% 100%;
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  filter:drop-shadow(0 0 6px rgba(255,80,0,.7)) drop-shadow(0 0 18px rgba(255,140,0,.4));
-  animation:lava-flow 4s linear infinite;
-}
-@keyframes lava-flow{
-  0%{background-position:0% 50%}
-  100%{background-position:300% 50%}
-}
-
-/* --- Секции и карточки --- */
-.section{max-width:1180px;margin:0 auto;padding:56px 20px}
-.section h2{
-  font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:14px;
-  background:linear-gradient(180deg,#f4f6f8 0%,#b6bdc5 45%,#767d86 52%,#aeb5bd 58%,#e7eaee 100%);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
-.card{
-  padding:26px;border-radius:14px;
-  background:linear-gradient(160deg,#2b3037 0%,#21252b 60%,#1c2025 100%);
-  border:1px solid var(--line);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.09),0 10px 30px rgba(0,0,0,.35);
-}
-.card h3{margin-bottom:10px;color:#eef1f4;font-size:1.12rem}
-.card p,.card li{color:var(--muted);font-size:.96rem}
-.card ul{padding-left:18px}
-.card a{font-weight:600}
-
-.bar{max-width:1180px;margin:8px auto;height:4px;border-radius:4px;
-  background:linear-gradient(90deg,#3a4048,#7d858f 50%,#3a4048)}
-
-footer{margin-top:60px;padding:36px 20px;text-align:center;
-  background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.5));
-  border-top:1px solid var(--line)}
-footer p{color:var(--muted);font-size:.92rem}
-
-/* ===== Мобильное меню: бесконечная лента ===== */
-@media (max-width:768px){
-  header .top{
-    flex-direction:column;align-items:stretch;gap:8px;padding:12px 16px;
-  }
-  nav{
-    width:100%;
-    overflow:hidden;      /* ленту двигает JS, а не скролл браузера */
-    touch-action:pan-y;   /* вертикальный скролл страницы не блокируем */
-    cursor:grab;
-  }
-  nav.dragging{cursor:grabbing}
-  nav ul{
-    display:flex;flex-wrap:nowrap;gap:0;
-    width:max-content;margin:0;padding:0;will-change:transform;
-  }
-  nav li{flex-shrink:0}
-  nav a{
-    display:block;padding:8px 14px;margin-right:8px;white-space:nowrap;
-    background:linear-gradient(180deg,#333941,#262a30);
-    border:1px solid var(--line);border-radius:20px;
-    font-size:.9rem;color:var(--steel);
-    user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;
-  }
-  nav a.active{
-    color:#fff;background:linear-gradient(180deg,#4a525c,#2b3037);
-    border-color:rgba(255,255,255,.35);
-  }
-}
-@media(max-width:720px){ .hero{padding:60px 16px 46px} }
+/* --- бесконечная лента меню (работает на любой ширине) --- */
+#menu{overflow:hidden;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+#menu.dragging{cursor:grabbing}
+#menu ul{display:flex;flex-wrap:nowrap;gap:0;width:max-content;margin:0;padding:0;list-style:none;will-change:transform}
+#menu a{display:block;padding:8px 14px;margin-right:8px;white-space:nowrap;
+  background:linear-gradient(180deg,#333941,#262a30);border:1px solid rgba(255,255,255,.08);
+  border-radius:20px;font-size:.92rem;color:#aab3bd}
+#menu a.active{color:#fff;background:linear-gradient(180deg,#4a525c,#2b3037);border-color:rgba(255,255,255,.35)}
 </style>
 </head>
 <body>
 
-  <header>
-    <div class="top">
-      <div class="logo">SPECIALSTEEL<span>МЕТАЛЛООБРАБОТКА · ПОКОВКИ</span></div>
-      <nav>
-        <ul>
-          <li><a href="index.html">Главная</a></li>
-          <li><a href="rough.html">Черновая мехобработка</a></li>
-          <li><a href="forging.html">Поковки</a></li>
-          <li><a href="finish.html">Чистовая мехобработка</a></li>
-          <li><a href="turning.html">Токарные работы</a></li>
-          <li><a href="milling.html">Фрезерные работы</a></li>
-          <li><a href="heattreat.html">Термообработка</a></li>
-          <li><a href="quality.html">Качество</a></li>
-          <li><a href="about.html">О компании</a></li>
-          <li><a href="gallery.html">Галерея</a></li>
-          <li><a class="active" href="contacts.html">Контакты</a></li>
-        </ul>
-      </nav>
+<header>
+  <div class="top">
+    <div class="logo">SPECIALSTEEL<span>МЕТАЛЛООБРАБОТКА · ПОКОВКИ</span></div>
+    <div id="menu">
+      <ul>
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="rough.html">Черновая мехобработка</a></li>
+        <li><a href="forging.html">Поковки</a></li>
+        <li><a href="finish.html">Чистовая мехобработка</a></li>
+        <li><a href="turning.html">Токарные работы</a></li>
+        <li><a href="milling.html">Фрезерные работы</a></li>
+        <li><a href="heattreat.html">Термообработка</a></li>
+        <li><a href="quality.html">Качество</a></li>
+        <li><a href="about.html">О компании</a></li>
+        <li><a href="gallery.html">Галерея</a></li>
+        <li><a class="active" href="contacts.html">Контакты</a></li>
+      </ul>
     </div>
-  </header>
+  </div>
+</header>
 
-  <section class="hero">
-    <div class="lava-brand">SPECIALSTEEL</div>
-    <h1>Контакты</h1>
-    <p>Пришлите чертёж, эскиз или описание задачи — рассчитаем стоимость и сроки.</p>
-  </section>
-
-  <div class="bar"></div>
-
-  <section class="section">
-    <h2>Свяжитесь с нами</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>Электронная почта</h3>
-        <p><a href="mailto:specialsteel@inbox.ru">specialsteel@inbox.ru</a></p>
-        <p>Основной канал для запросов: чертежи, спецификации, техпроцессы.</p>
-      </div>
-      <div class="card">
-        <h3>Как оформить запрос</h3>
-        <ul>
-          <li>Опишите изделие: тип поковки, конфигурацию, массу.</li>
-          <li>Укажите марку стали и требования к свойствам.</li>
-          <li>Приложите чертёж или эскиз.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <p>© 2026 SpecialSteel. Металлообработка и производство поковок.</p>
-    <p>Электронная почта: <a href="mailto:specialsteel@inbox.ru">specialsteel@inbox.ru</a></p>
-  </footer>
+<section style="max-width:1180px;margin:0 auto;padding:60px 20px;text-align:center">
+  <h1>Контакты</h1>
+  <p style="color:#8b929b">Пришлите чертёж, эскиз или описание задачи — рассчитаем стоимость и сроки.</p>
+</section>
 
 <script>
 (function () {
-  var mq = window.matchMedia('(max-width: 768px)');
-  var nav = document.querySelector('header nav');
-  var ul = nav && nav.querySelector('ul');
-  if (!nav || !ul) return;
+  var box = document.getElementById('menu');
+  var ul = box.querySelector('ul');
+  if (!box || !ul) { alert('меню не найдено'); return; }
 
-  var baseCount = 0, halfWidth = 1;
+  var baseCount = 0, period = 1;
   var offset = 0, dragging = false, startX = 0, startOffset = 0;
-  var resumeAt = 0, moved = false, rafId = null;
+  var resumeAt = 0, moved = false, rafId = null, lastTime = 0;
 
   function build() {
-    // снимаем клоны, если build уже вызывался
-    if (baseCount) {
-      while (ul.children.length > baseCount) ul.removeChild(ul.lastElementChild);
-    }
+    if (baseCount) while (ul.children.length > baseCount) ul.removeChild(ul.lastElementChild);
     baseCount = ul.children.length;
 
     var w = 0, i;
     for (i = 0; i < baseCount; i++) w += ul.children[i].offsetWidth;
-    if (w <= 0) w = ul.scrollWidth;
-    if (w <= 0) w = 1;
+    if (!w) w = 1;
 
-    // дублируем, пока лента не станет длиннее «экран + один комплект» —
-    // тогда шов закольцовки никогда не попадает в видимую зону
     var guard = 0;
-    while (ul.scrollWidth < nav.clientWidth + w && guard++ < 50) {
+    while (ul.scrollWidth < box.clientWidth + w && guard++ < 50) {
       for (i = 0; i < baseCount; i++) ul.appendChild(ul.children[i].cloneNode(true));
     }
-
-    // активная подсветка остаётся только в первом комплекте
-    for (i = baseCount; i < ul.children.length; i++) {
-      var a = ul.children[i].querySelector('a.active');
-      if (a) a.classList.remove('active');
-    }
-
-    halfWidth = w;
+    period = w;
   }
 
   function render() {
-    offset = ((offset % halfWidth) + halfWidth) % halfWidth;
-    ul.style.transform = 'translateX(' + (-offset) + 'px)';
+    offset = ((offset % period) + period) % period;
+    ul.style.transform = 'translate3d(' + (-offset) + 'px,0,0)';
   }
 
   function tick(now) {
     rafId = requestAnimationFrame(tick);
-    if (!dragging && now > resumeAt) offset += 0.4; // скорость автопрокрутки
+    var dt = lastTime ? (now - lastTime) : 16.7;
+    lastTime = now;
+    if (!dragging && now > resumeAt) offset += dt * 0.024;
     render();
   }
 
-  function start() {
-    if (rafId || !mq.matches) return;
-    offset = 0;
-    build();
-    render();
-    rafId = requestAnimationFrame(tick);
-  }
+  build();
+  render();
+  rafId = requestAnimationFrame(tick);
 
-  function stop() {
-    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
-    ul.style.transform = '';
-  }
-
-  ul.addEventListener('pointerdown', function (e) {
-    if (!mq.matches) return;
+  box.addEventListener('pointerdown', function (e) {
     dragging = true; moved = false;
-    startX = e.clientX;
-    startOffset = offset;
-    nav.classList.add('dragging');
+    startX = e.clientX; startOffset = offset;
+    box.classList.add('dragging');
     resumeAt = Infinity;
+    try { box.setPointerCapture(e.pointerId); } catch (err) {}
   });
-  ul.addEventListener('pointermove', function (e) {
+  box.addEventListener('pointermove', function (e) {
     if (!dragging) return;
     var dx = e.clientX - startX;
     if (Math.abs(dx) > 5) moved = true;
@@ -286,25 +119,16 @@ footer p{color:var(--muted);font-size:.92rem}
   function endDrag() {
     if (!dragging) return;
     dragging = false;
-    nav.classList.remove('dragging');
-    resumeAt = performance.now() + 4000; // пауза 4 сек после касания
+    box.classList.remove('dragging');
+    resumeAt = performance.now() + 4000;
   }
-  ul.addEventListener('pointerup', endDrag);
-  ul.addEventListener('pointercancel', endDrag);
-  ul.addEventListener('dragstart', function (e) { e.preventDefault(); });
-  ul.addEventListener('click', function (e) {
+  box.addEventListener('pointerup', endDrag);
+  box.addEventListener('pointercancel', endDrag);
+  box.addEventListener('click', function (e) {
     if (moved) { e.preventDefault(); moved = false; }
   });
 
-  window.addEventListener('resize', function () {
-    if (mq.matches) { build(); render(); }
-  });
-
-  function onMq(e) { e.matches ? start() : stop(); }
-  if (mq.addEventListener) mq.addEventListener('change', onMq);
-  else if (mq.addListener) mq.addListener(onMq);
-
-  start();
+  window.addEventListener('resize', function () { build(); render(); });
 })();
 </script>
 </body>
