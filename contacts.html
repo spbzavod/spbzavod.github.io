@@ -1,68 +1,175 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Контакты — SpecialSteel</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Контакты — SpecialSteel</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* --- Логотип и меню-лента: рабочая версия (перекрывает style.css) --- */
+.logo{font-size:1.4rem;font-weight:800;letter-spacing:.04em;white-space:nowrap;
+  background:linear-gradient(100deg,#5b6570,#8b949e 12%,#e8eef4 22%,#fff 28%,#cfe0f2 36%,#aeb9c4 46%,#6d747d 58%,#b9c0c8 72%,#e9f2fa 86%,#7d858f);
+  background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shimmer 9s linear infinite, glow 5s ease-in-out infinite}
+.logo span{font-weight:400;font-size:.8rem;letter-spacing:.18em;display:block;
+  -webkit-text-fill-color:#8b929b;color:#8b929b}
+@keyframes shimmer{0%{background-position:0% 50%}100%{background-position:300% 50%}}
+@keyframes glow{0%,100%{filter:drop-shadow(0 0 0 rgba(190,220,255,0))}50%{filter:drop-shadow(0 0 10px rgba(190,220,255,.45))}}
+
+#menu{overflow:hidden;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+#menu.dragging{cursor:grabbing}
+#menu ul{display:flex;flex-wrap:nowrap;gap:0;width:max-content;margin:0;padding:0;list-style:none;will-change:transform}
+#menu a{display:block;padding:8px 14px;margin-right:8px;white-space:nowrap;
+  background:linear-gradient(180deg,#333941,#262a30);border:1px solid rgba(255,255,255,.08);
+  border-radius:20px;font-size:.92rem;color:#aab3bd}
+#menu a.active{color:#fff;background:linear-gradient(180deg,#4a525c,#2b3037);border-color:rgba(255,255,255,.35)}
+
+/* --- Раскалённая надпись SPECIALSTEEL --- */
+.lava-brand{
+  font-size:2.2rem;font-weight:800;letter-spacing:6px;
+  text-transform:uppercase;margin-bottom:14px;
+  background:linear-gradient(100deg,
+    #3a0500 0%,#7a1a00 15%,#e63b00 30%,#ff8c1a 42%,#ffd54a 50%,
+    #ff8c1a 58%,#e63b00 70%,#7a1a00 85%,#3a0500 100%);
+  background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 6px rgba(255,80,0,.7)) drop-shadow(0 0 18px rgba(255,140,0,.4));
+  animation:lava-flow 4s linear infinite;
+}
+@keyframes lava-flow{
+  0%{background-position:0% 50%}
+  100%{background-position:300% 50%}
+}
+</style>
 </head>
 <body>
 
-  <header>
-    <div class="top">
-      <div class="logo">SPECIALSTEEL<span>МЕТАЛЛООБРАБОТКА · ПОКОВКИ</span></div>
-      <nav>
-        <ul>
-          <li><a href="index.html">Главная</a></li>
-          <li><a href="rough.html">Черновая мехобработка</a></li>
-          <li><a href="forging.html">Поковки</a></li>
-          <li><a href="finish.html">Чистовая мехобработка</a></li>
-          <li><a href="turning.html">Токарные работы</a></li>
-          <li><a href="milling.html">Фрезерные работы</a></li>
-          <li><a href="heattreat.html">Термообработка</a></li>
-          <li><a href="quality.html">Качество</a></li>
-          <li><a href="about.html">О компании</a></li>
-          <li><a href="gallery.html">Галерея</a></li>
-          <li><a class="active" href="contacts.html">Контакты</a></li>
-        </ul>
-      </nav>
+<header>
+  <div class="top">
+    <div class="logo">SPECIALSTEEL<span>МЕТАЛЛООБРАБОТКА · ПОКОВКИ</span></div>
+    <div id="menu">
+      <ul>
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="rough.html">Черновая мехобработка</a></li>
+        <li><a href="forging.html">Поковки</a></li>
+        <li><a href="finish.html">Чистовая мехобработка</a></li>
+        <li><a href="turning.html">Токарные работы</a></li>
+        <li><a href="milling.html">Фрезерные работы</a></li>
+        <li><a href="heattreat.html">Термообработка</a></li>
+        <li><a href="quality.html">Качество</a></li>
+        <li><a href="about.html">О компании</a></li>
+        <li><a href="gallery.html">Галерея</a></li>
+        <li><a class="active" href="contacts.html">Контакты</a></li>
+      </ul>
     </div>
-  </header>
+  </div>
+</header>
 
-   <section class="hero">
-    <div class="lava-brand">SPECIALSTEEL</div>
-    <h1>Контакты</h1>
-    <p>Пришлите чертёж, эскиз или описание задачи — рассчитаем стоимость и сроки.</p>
-  </section>
+<section class="hero">
+  <div class="lava-brand">SPECIALSTEEL</div>
+  <h1>Контакts</h1>
+  <p>Пришлите чертёж, эскиз или описание задачи — рассчитаем стоимость и сроки.</p>
+</section>
 
+<div class="bar"></div>
 
-  <div class="bar"></div>
-
-  <section class="section">
-    <h2>Свяжитесь с нами</h2>
-    <div class="grip"></div>
-    <div class="cards">
-      <div class="card">
-        <h3>Электронная почта</h3>
-        <p><a href="mailto:specialsteel@inbox.ru" class="email-link">specialsteel@inbox.ru</a></p>
-        <p>Основной канал для запросов: чертежи, спецификации, техпроцессы.</p>
-      </div>
-
-      <div class="card">
-        <h3>Как оформить запрос</h3>
-        <ul>
-          <li>Опишите изделие: тип поковки, конфигурацию, массу.</li>
-          <li>Укажите марку стали и требования к свойствам.</li>
-          <li>Приложите чертёж или эскиз.</li>
-        </ul>
-      </div>
+<section class="section">
+  <h2>Свяжитесь с нами</h2>
+  <div class="grip"></div>
+  <div class="cards">
+    <div class="card">
+      <h3>Электронная почта</h3>
+      <p><a href="mailto:specialsteel@inbox.ru" class="email-link">specialsteel@inbox.ru</a></p>
+      <p>Основной канал для запросов: чертежи, спецификации, техпроцессы.</p>
     </div>
-  </section>
 
-  <footer>
-    <p>© 2026 SpecialSteel. Металлообработка и производство поковок.</p>
-    <p>Электронная почта: <a href="mailto:specialsteel@inbox.ru">specialsteel@inbox.ru</a></p>
-  </footer>
+    <div class="card">
+      <h3>Как оформить запрос</h3>
+      <ul>
+        <li>Опишите изделие: тип поковки, конфигурацию, массу.</li>
+        <li>Укажите марку стали и требования к свойствам.</li>
+        <li>Приложите чертёж или эскиз.</li>
+      </ul>
+    </div>
+  </div>
+</section>
 
+<footer>
+  <p>© 2026 SpecialSteel. Металлообработка и производство поковок.</p>
+  <p>Электронная почта: <a href="mailto:specialsteel@inbox.ru">specialsteel@inbox.ru</a></p>
+</footer>
+
+<script>
+(function () {
+  var box = document.getElementById('menu');
+  var ul = box.querySelector('ul');
+  if (!box || !ul) { alert('меню не найдено'); return; }
+
+  var baseCount = 0, period = 1;
+  var offset = 0, dragging = false, startX = 0, startOffset = 0;
+  var resumeAt = 0, moved = false, rafId = null, lastTime = 0;
+
+  function build() {
+    if (baseCount) while (ul.children.length > baseCount) ul.removeChild(ul.lastElementChild);
+    baseCount = ul.children.length;
+
+    var w = 0, i;
+    for (i = 0; i < baseCount; i++) w += ul.children[i].offsetWidth;
+    if (!w) w = 1;
+
+    var guard = 0;
+    while (ul.scrollWidth < box.clientWidth + w && guard++ < 50) {
+      for (i = 0; i < baseCount; i++) ul.appendChild(ul.children[i].cloneNode(true));
+    }
+    period = w;
+  }
+
+  function render() {
+    offset = ((offset % period) + period) % period;
+    ul.style.transform = 'translate3d(' + (-offset) + 'px,0,0)';
+  }
+
+  function tick(now) {
+    rafId = requestAnimationFrame(tick);
+    var dt = lastTime ? (now - lastTime) : 16.7;
+    lastTime = now;
+    if (!dragging && now > resumeAt) offset += dt * 0.024;
+    render();
+  }
+
+  build();
+  render();
+  rafId = requestAnimationFrame(tick);
+
+  box.addEventListener('pointerdown', function (e) {
+    dragging = true; moved = false;
+    startX = e.clientX; startOffset = offset;
+    box.classList.add('dragging');
+    resumeAt = Infinity;
+    try { box.setPointerCapture(e.pointerId); } catch (err) {}
+  });
+  box.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    var dx = e.clientX - startX;
+    if (Math.abs(dx) > 5) moved = true;
+    offset = startOffset - dx;
+    render();
+  });
+  function endDrag() {
+    if (!dragging) return;
+    dragging = false;
+    box.classList.remove('dragging');
+    resumeAt = performance.now() + 4000;
+  }
+  box.addEventListener('pointerup', endDrag);
+  box.addEventListener('pointercancel', endDrag);
+  box.addEventListener('click', function (e) {
+    if (moved) { e.preventDefault(); moved = false; }
+  });
+
+  window.addEventListener('resize', function () { build(); render(); });
+})();
+</script>
 </body>
 </html>
