@@ -119,9 +119,9 @@
 (function () {
   var box = document.getElementById('menu');
   var ul = box.querySelector('ul');
-  if (!box || !ul) { alert('меню не найдено'); return; }
+  if (!box || !ul) return;
 
-  var baseCount = 0, period = 1;
+  var baseCount = 0, period = 1, fits = false;
   var offset = 0, dragging = false, startX = 0, startOffset = 0;
   var resumeAt = 0, moved = false, rafId = null, lastTime = 0;
 
@@ -133,11 +133,23 @@
     for (i = 0; i < baseCount; i++) w += ul.children[i].offsetWidth;
     if (!w) w = 1;
 
+    if (w <= box.clientWidth) {
+      fits = true;
+      period = 1;
+      offset = 0;
+      ul.style.transform = 'translate3d(0,0,0)';
+      box.style.cursor = 'default';
+      return;
+    }
+
+    fits = false;
+    box.style.cursor = 'grab';
     var guard = 0;
     while (ul.scrollWidth < box.clientWidth + w && guard++ < 50) {
       for (i = 0; i < baseCount; i++) ul.appendChild(ul.children[i].cloneNode(true));
     }
     period = w;
+    render();
   }
 
   function render() {
@@ -149,15 +161,15 @@
     rafId = requestAnimationFrame(tick);
     var dt = lastTime ? (now - lastTime) : 16.7;
     lastTime = now;
-    if (!dragging && now > resumeAt) offset += dt * 0.024;
-    render();
+    if (!fits && !dragging && now > resumeAt) offset += dt * 0.024;
+    if (!fits) render();
   }
 
   build();
-  render();
   rafId = requestAnimationFrame(tick);
 
   box.addEventListener('pointerdown', function (e) {
+    if (fits) return;
     dragging = true; moved = false;
     startX = e.clientX; startOffset = offset;
     box.classList.add('dragging');
@@ -183,7 +195,7 @@
     if (moved) { e.preventDefault(); moved = false; }
   });
 
-  window.addEventListener('resize', function () { build(); render(); });
+  window.addEventListener('resize', build);
 })();
 </script>
 </body>
