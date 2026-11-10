@@ -5,12 +5,10 @@
   --steel:#aab3bd; --text:#d8dce2; --muted:#8b929b;
   --line:rgba(255,255,255,.08); --accent:#7fb2d9;
 }
-html{scroll-behavior:smooth;
-  overflow-x:hidden;overflow-x:clip}
+html{scroll-behavior:smooth}
 body{
   font-family:'Segoe UI',Roboto,Arial,sans-serif;
   color:var(--text); line-height:1.65; min-height:100vh;
-  overflow-x:hidden;overflow-x:clip;
   background:
     radial-gradient(1100px 520px at 15% -8%, #343a42 0%, transparent 60%),
     radial-gradient(900px 480px at 88% 6%, #2a2f37 0%, transparent 55%),
@@ -22,56 +20,9 @@ img{max-width:100%;display:block}
 a{color:var(--accent);text-decoration:none}
 a:hover{text-decoration:underline}
 
-/* --- Логотип: серебристо-голубой блик + медленная вспышка --- */
-.logo{
-  font-size:1.45rem;font-weight:800;letter-spacing:.04em;white-space:nowrap;
-  background:linear-gradient(
-    100deg,
-    #5b6570 0%,
-    #8b949e 12%,
-    #e8eef4 22%,
-    #ffffff 28%,
-    #cfe0f2 36%,
-    #aeb9c4 46%,
-    #6d747d 58%,
-    #b9c0c8 72%,
-    #e9f2fa 86%,
-    #7d858f 100%
-  );
-  background-size:300% 100%;
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  animation:steel-shimmer 9s linear infinite, steel-glow 5s ease-in-out infinite;
-}
-.logo span{
-  font-weight:400;font-size:.85rem;letter-spacing:.18em;display:block;
-  background:linear-gradient(
-    100deg,
-    #6a727b 0%,
-    #9aa5b0 18%,
-    #d9e4ee 32%,
-    #b6c4d2 46%,
-    #7d858f 62%,
-    #c9d5e0 80%,
-    #6a727b 100%
-  );
-  background-size:300% 100%;
-  -webkit-background-clip:text;background-clip:text;
-  -webkit-text-fill-color:transparent;color:transparent;
-  animation:steel-shimmer 9s linear infinite;
-}
-@keyframes steel-shimmer{
-  0%{background-position:0% 50%}
-  100%{background-position:300% 50%}
-}
-@keyframes steel-glow{
-  0%,100%{filter:drop-shadow(0 0 0 rgba(190,220,255,0))}
-  50%{filter:drop-shadow(0 0 10px rgba(190,220,255,.45)) drop-shadow(0 0 22px rgba(160,200,255,.22))}
-}
-
 /* --- Шапка --- */
 header{
   position:sticky;top:0;z-index:100;
-  overflow:hidden;
   background:rgba(19,21,25,.82);
   backdrop-filter:blur(12px);
   border-bottom:1px solid var(--line);
@@ -79,27 +30,16 @@ header{
 }
 .top{max-width:1180px;margin:0 auto;padding:14px 20px;
   display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-
-/* --- Меню-лента: обрезка и запрет сдвига страницы на ЛЮБОЙ ширине --- */
-nav{
-  overflow:hidden;
-  width:100%;
-  min-width:0;
-  touch-action:pan-y;
-  cursor:grab;
-  user-select:none;
-  -webkit-user-select:none;
-}
-nav.dragging{cursor:grabbing}
-nav ul{display:flex;gap:4px;list-style:none;flex-wrap:nowrap;width:max-content}
-nav li{flex-shrink:0}
+.logo{font-size:1.45rem;font-weight:800;letter-spacing:.04em;white-space:nowrap;
+  background:linear-gradient(180deg,#ffffff 0%,#c7ccd3 35%,#6d747d 52%,#b9c0c8 55%,#8b929b 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 1px 1px rgba(0,0,0,.4)}
+.logo span{font-weight:400;font-size:.85rem;color:var(--muted);
+  -webkit-text-fill-color:var(--muted);display:block;letter-spacing:.18em}
+nav ul{display:flex;gap:4px;list-style:none;flex-wrap:wrap}
 nav a{
   display:block;padding:8px 13px;border-radius:8px;font-size:.92rem;
-  color:var(--steel);transition:.25s;
-  user-select:none;
-  -webkit-user-select:none;
-  -webkit-touch-callout:none;
-}
+  color:var(--steel);transition:.25s}
 nav a:hover{
   color:#fff;background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.03));
   text-decoration:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
@@ -113,33 +53,6 @@ h1,h2{
   background:linear-gradient(180deg,#f4f6f8 0%,#b6bdc5 45%,#767d86 52%,#aeb5bd 58%,#e7eaee 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
   text-shadow:0 2px 3px rgba(0,0,0,.35)}
-
-/* --- Раскалённая надпись SPECIALSTEEL --- */
-.lava-brand{
-  font-size:2.2rem;font-weight:800;letter-spacing:6px;
-  text-transform:uppercase;margin-bottom:14px;
-  background:linear-gradient(
-    100deg,
-    #3a0500 0%,
-    #7a1a00 15%,
-    #e63b00 30%,
-    #ff8c1a 42%,
-    #ffd54a 50%,
-    #ff8c1a 58%,
-    #e63b00 70%,
-    #7a1a00 85%,
-    #3a0500 100%
-  );
-  background-size:300% 100%;
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  filter:drop-shadow(0 0 6px rgba(255,80,0,.7))
-         drop-shadow(0 0 18px rgba(255,140,0,.4));
-  animation:lava-flow 4s linear infinite;
-}
-@keyframes lava-flow{
-  0%{background-position:0% 50%}
-  100%{background-position:300% 50%}
-}
 
 /* --- Герой --- */
 .hero{
@@ -222,32 +135,8 @@ footer{margin-top:60px;padding:36px 20px;text-align:center;
   border-top:1px solid var(--line)}
 footer p{color:var(--muted);font-size:.92rem}
 footer a{color:var(--steel)}
-
-/* --- Малые экраны --- */
 @media(max-width:720px){
   .top{justify-content:center}
+  nav ul{justify-content:center}
   .hero{padding:60px 16px 46px}
-}
-
-/* ===== Мобильное меню: оформление капсул ===== */
-@media (max-width: 768px) {
-  header .top{
-    flex-direction:column;
-    align-items:stretch;
-    gap:8px;
-    padding:12px 16px;
-  }
-  nav a{
-    padding:8px 14px;
-    margin-right:8px;
-    white-space:nowrap;
-    background:linear-gradient(180deg,#333941,#262a30);
-    border:1px solid var(--line);
-    border-radius:20px;
-    font-size:.9rem;
-  }
-  nav a.active{
-    background:linear-gradient(180deg,#4a525c,#2b3037);
-    border-color:rgba(255,255,255,.35);
-  }
 }
