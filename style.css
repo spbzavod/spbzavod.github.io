@@ -30,12 +30,45 @@ header{
 }
 .top{max-width:1180px;margin:0 auto;padding:14px 20px;
   display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.logo{font-size:1.45rem;font-weight:800;letter-spacing:.04em;white-space:nowrap;
-  background:linear-gradient(180deg,#ffffff 0%,#c7ccd3 35%,#6d747d 52%,#b9c0c8 55%,#8b929b 100%);
+
+/* --- Логотип с серебристым переливом и медленной вспышкой --- */
+.logo{
+  font-size:1.45rem;font-weight:800;letter-spacing:.04em;white-space:nowrap;
+  /* Серебристый градиент: движущаяся яркая полоса-блик */
+  background:linear-gradient(100deg,
+    #8a929c 0%,
+    #dfe4ea 12%,
+    #ffffff 20%,
+    #b9c0c8 32%,
+    #6d747d 44%,
+    #a9b1ba 54%,
+    #ffffff 66%,
+    #cfd5db 76%,
+    #767d86 86%,
+    #8a929c 100%);
+  background-size:300% 100%;
+  background-position:0% 50%;
   -webkit-background-clip:text;background-clip:text;color:transparent;
-  text-shadow:0 1px 1px rgba(0,0,0,.4)}
-.logo span{font-weight:400;font-size:.85rem;color:var(--muted);
-  -webkit-text-fill-color:var(--muted);display:block;letter-spacing:.18em}
+
+  /* Перелив блика по буквам */
+  animation:silver-shine 7s linear infinite,
+            silver-flash 7s ease-in-out infinite;
+}
+.logo span{
+  font-weight:400;font-size:.85rem;letter-spacing:.18em;
+  -webkit-text-fill-color:var(--muted);color:var(--muted);display:block
+}
+
+@keyframes silver-shine{
+  0%   {background-position:0% 50%}
+  100% {background-position:300% 50%}
+}
+@keyframes silver-flash{
+  0%,100% {filter:drop-shadow(0 0 3px rgba(215,225,235,.25))}
+  50%     {filter:drop-shadow(0 0 12px rgba(255,255,255,.8))
+                  drop-shadow(0 0 26px rgba(190,200,215,.45))}
+}
+
 nav ul{display:flex;gap:4px;list-style:none;flex-wrap:wrap}
 nav a{
   display:block;padding:8px 13px;border-radius:8px;font-size:.92rem;
